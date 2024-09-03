@@ -13,6 +13,7 @@ import (
 	"os"
 	"path/filepath"
 	"sync"
+	"time"
 
 	"github.com/nfnt/resize"
 )
@@ -186,13 +187,25 @@ func processImages() {
 }
 
 func main() {
-	log.Println("Iniciando processamento ...")
 
 	createDirIfNotExist("./ARTES")
 	createDirIfNotExist("./RODAPE")
 	createDirIfNotExist("./ARTES_PRONTAS")
 
+	fmt.Println("Pressione Enter para iniciar o processamento...")
+	fmt.Scanln() // Espera a entrada do usuário
+
+	startTime := time.Now() // Captura o tempo de início
+
+	log.Printf("### %v INICIANDO PROCESSAMENTO ... ", startTime)
+
 	processImages()
 
-	log.Println("Processamento finalizado!")
+	// Calcula a duração desde o início até agora
+	elapsedTime := time.Since(startTime)
+
+	fmt.Printf("### PROCESSAMENTO FINALIZADO COM SUCESSO!!! \n Tempo decorrido: %v\n", elapsedTime)
+
+	fmt.Println("Pressione Enter para sair...")
+	fmt.Scanln() // Espera a entrada do usuário antes de fechar
 }
